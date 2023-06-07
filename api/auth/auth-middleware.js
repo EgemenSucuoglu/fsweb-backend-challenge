@@ -28,8 +28,8 @@ const restricted = (req, res, next) => {
 
 const payLoadCheck = async function (req, res, next) {
   try {
-    const { name, email, password } = req.body;
-    if (!name || !email || !password) {
+    const { username, email, password } = req.body;
+    if (!username || !email || !password) {
       res
         .status(400)
         .json({ message: "Name,email ve password alanlarını doldurun" });
@@ -44,8 +44,8 @@ const payLoadCheck = async function (req, res, next) {
 
 const checkNameEmail = async function (req, res, next) {
   try {
-    const { name, email } = req.body;
-    let nameControl = await User.findByFilter({ name: name });
+    const { username, email } = req.body;
+    let nameControl = await User.findByFilter({ name: username });
     let emailControl = await User.findByFilter({ email: email });
     if (nameControl) {
       res.status(401).json({
@@ -66,7 +66,7 @@ const checkNameEmail = async function (req, res, next) {
 const passwordCheck = async function (req, res, next) {
   try {
     let user = await User.findByFilter({
-      name: req.body.name,
+      name: req.body.username,
     });
     if (!user) {
       next({
@@ -92,8 +92,8 @@ const passwordCheck = async function (req, res, next) {
 };
 const payLoadCheckLogin = async function (req, res, next) {
   try {
-    const { name, password } = req.body;
-    if (!name || !password) {
+    const { username, password } = req.body;
+    if (!username || !password) {
       res.status(400).json({ message: "Name, password alanlarını doldurun" });
     } else {
       req.encPassword = await bcrypt.hash(req.body.password, 8); //şifreyi hashledik

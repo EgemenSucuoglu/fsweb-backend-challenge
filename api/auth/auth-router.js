@@ -16,7 +16,7 @@ router.post(
   async (req, res, next) => {
     try {
       const newUserObject = {
-        name: req.body.name,
+        name: req.body.username,
         email: req.body.email,
         password: req.encPassword,
       };
@@ -35,13 +35,13 @@ router.post(
     try {
       const token = jwt.sign(
         {
-          name: req.user.name,
+          name: req.user.username,
         },
         JWT_SECRET,
         { expiresIn: "1d" }
       );
       res.status(200).json({
-        message: `welcome ${req.user.name}`,
+        message: `welcome ${req.user.username}`,
         token: token,
       });
     } catch (error) {

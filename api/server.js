@@ -15,7 +15,7 @@ server.use(morgan("dev"));
 server.use(express.json());
 
 server.get("/", (req, res) => {
-  res.send("Server up and running...");
+  res.status(404).json({ message: "server not found" });
 });
 
 server.use("/api/users", userRouter);
@@ -25,7 +25,7 @@ server.use("/api/tweets", tweetsRouter);
 server.use("/api/comments", commentsRouter);
 
 server.use((err, req, res, next) => {
-  res.status(err.status || 500).json({
+  res.status(err.status || 201).json({
     message: err.message || "Server Error!...",
   });
 });
