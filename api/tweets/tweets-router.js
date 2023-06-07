@@ -4,7 +4,7 @@ const tMd = require("./tweets-middleware");
 
 router.get("/", async (req, res, next) => {
   try {
-    const tweets = await tModel.getAll(); //modelden fonksiyonları alıyoruz.
+    const tweets = await tModel.getAll();
     res.status(200).json(tweets);
   } catch (error) {
     next(error);

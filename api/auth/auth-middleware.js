@@ -18,7 +18,7 @@ const restricted = (req, res, next) => {
       } else {
         //token var geçerli
         req.userInfo = decodedJWT;
-        next(); //kullanıcyı bir sonraki middleware gönderiyoruz
+        next();
       }
     });
   } else {

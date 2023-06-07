@@ -4,7 +4,7 @@ const lMd = require("./likes-middleware");
 
 router.get("/", async (req, res, next) => {
   try {
-    const likes = await likesModel.getAll(); //modelden fonksiyonları alıyoruz.
+    const likes = await likesModel.getAll();
     res.status(200).json(likes);
   } catch (error) {
     next(error);

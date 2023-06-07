@@ -6,7 +6,7 @@ async function getAll() {
 }
 
 async function getBy(filter) {
-  const result = await db("likes").where(filter).first(); //object
+  const result = await db("likes").where(filter).first();
   return result;
 }
 
