@@ -1,9 +1,7 @@
 const db = require("../../data/db-config");
 
 async function getAll() {
-  const likes = await db("likes")
-    .leftJoin("tweets", "tweets.tweet_id", "likes.tweet_id")
-    .leftJoin("users", "users.user_id", "likes.user_id");
+  const likes = await db("likes").select("*");
   return likes;
 }
 

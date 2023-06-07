@@ -20,7 +20,7 @@ router.get("/:id", tMd.isTweetIdExists, async (req, res, next) => {
     next(error);
   }
 });
-router.tweet("/", tMd.isContentValid, async (req, res, next) => {
+router.post("/", tMd.isContentValid, async (req, res, next) => {
   try {
     const tweet = await tModel.add(req.body);
     res.status(201).json(tweet);
@@ -42,6 +42,7 @@ router.put(
     }
   }
 );
+
 router.delete("/:id", tMd.isTweetIdExists, async (req, res, next) => {
   try {
     const deletedTweet = await tModel.remove(req.params.id);

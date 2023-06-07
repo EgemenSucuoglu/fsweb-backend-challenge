@@ -15,12 +15,12 @@ const checkUserId = async function (req, res, next) {
 
 const checkName = async function (req, res, next) {
   try {
-    const { name } = req.body;
-    let nameControl = await UserModel.findByFilter({ name: name });
+    const { username } = req.body;
+    let nameControl = await UserModel.findByFilter({ username: username });
     if (nameControl) {
       res.status(401).json({
         message:
-          "Kullanıcı ismi daha önceden alınmış, lütfen yeni kullanıcı ismi deneyin",
+          "Kullanıcı adı daha önceden alınmış, lütfen yeni bir kullanıcı adı deneyin.",
       });
     } else {
       next();

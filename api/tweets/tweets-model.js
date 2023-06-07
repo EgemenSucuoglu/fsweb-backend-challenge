@@ -1,15 +1,12 @@
 const db = require("../../data/db-config");
 
 async function getAll() {
-  const tweets = await db("tweets")
-    .leftJoin("users", "user.user_id", "tweets.user_id")
-    .select("tweets.*", "users.*");
+  const tweets = await db("tweets").select("*");
   return tweets;
 }
 
-async function getBy(filter) {
-  const result = await db("tweets").where(filter).first(); //object
-  return result;
+async function getById(tweet_id) {
+  return db("tweets").where("tweet_id", tweet_id).first();
 }
 async function add(post) {
   const tweetIdArray = await db("tweets").insert(post);
@@ -18,14 +15,23 @@ async function add(post) {
   return newTweet;
 }
 async function update(tweet_id, changes) {
-  return db("tweets").where("tweet_id", tweet_id).update(changes);
+  const updatedCount = await db("tweets")
+    .where("tweet_id", tweet_id)
+    .update(changes);
+
+  if (updatedCount > 0) {
+    const updatedTweet = await getById(tweet_id);
+    return updatedTweet;
+  } else {
+    throw new Error("Tweet not found");
+  }
 }
 async function remove(tweet_id) {
   return db("tweets").where("tweet_id", tweet_id).del();
 }
 module.exports = {
   getAll,
-  getBy,
+  getById,
   add,
   update,
   remove,

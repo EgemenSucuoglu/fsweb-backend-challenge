@@ -1,10 +1,7 @@
 const db = require("../../data/db-config");
 
 async function getAll() {
-  const comments = await db("comments")
-    .leftJoin("users", "user.user_id", "comments.user_id")
-    .leftJoin("tweets", "tweets.tweets_id", "comments.tweet_id")
-    .select("comments.*", "users.*", "tweets.tweet_id");
+  const comments = await db("comments").select("*");
   return comments;
 }
 

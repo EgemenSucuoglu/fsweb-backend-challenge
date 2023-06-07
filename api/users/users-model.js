@@ -1,15 +1,19 @@
 const db = require("../../data/db-config");
 
 async function getAllUsers() {
-  let users = await db("users").select("user_id", "name", "email");
+  const users = await db("users").select("*");
   return users;
 }
+async function getById(user_id) {
+  const user = await db("users").where({ user_id: user_id }).first();
+  return user;
+}
 async function findByFilter(filter) {
-  return db("users").where(filter).first();
+  return db("users").where(filter).select("*").first();
 }
 async function findById(user_id) {
   return db("users")
-    .select("user_id", "name")
+    .select("user_id", "username")
     .where("user_id", user_id)
     .first();
 }
@@ -29,6 +33,7 @@ module.exports = {
   getAllUsers,
   findByFilter,
   addUser,
+  getById,
   findById,
   updateUser,
   deleteUser,

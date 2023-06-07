@@ -6,8 +6,10 @@ const isContentValid = (req, res, next) => {
     !title ||
     !content ||
     !location ||
-    title.length > 54 ||
-    content.length > 300
+    title.trim().length === 0 ||
+    content.trim().length === 0 ||
+    title.trim().length > 54 ||
+    content.trim().length > 300
   ) {
     res.status(400).json({ message: "Required fields are empty" });
   } else {
@@ -21,7 +23,7 @@ const isTweetIdExists = async (req, res, next) => {
     if (!result) {
       res
         .status(400)
-        .json({ message: "there is no tweet matching your criteria" });
+        .json({ message: "There is no tweet matching your criteria" });
     } else {
       next();
     }
